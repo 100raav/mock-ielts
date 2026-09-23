@@ -27,7 +27,7 @@
     const table = kind === "listening" ? LISTENING_30 : READING_ACADEMIC_40;
     if (raw <= 0) return 1.0;
     if (raw >= 40) return 9.0;
-    return (typeof table[raw] === "number") ? table[raw] : 1.0;
+    return table[raw] ?? 1.0;
   }
 
   /* ---------- Reading · passage set A (Academic, official format) ---------- */
