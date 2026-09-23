@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock-IELTS · free, honest, offline-first practice</title>
+<meta name="description" content="Free band-7-orientated IELTS mock practice — Reading, Listening, Writing, Speaking — with real timers, honest band conversion, and YouTube resources that are real. No spam, no paywall, your data stays in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>:root{
+  --paper:#f5f4f2; --paper2:#efece8; --ink:#0a0a0a; --ink2:#2b2b2bnin;
+  --muted:#636363; --line:#e7e5e2; --line2:#d9d6d1;
+  --accent:#ff6b00; --accent2:#ff8a3d; --accent-ink:#5c2600;
+  --ok:#0f7b47; --okbg:#e6f4ec; --warn:#b95000; --warnbg:#fff1dc; --bad:#c62828; --badbg:#fdeaea;
+  --glass:#ffffff; --glass2:#ffffffcc;
+  --brandbg:#ffffff; --branddark:var(--ink);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Manrope',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --r:16px; --r2:22px;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --shadow:0 1px 2px rgba(15,15,15,.06),0 18px 44px -32px rgba(15,15,15,.22);
+  --shadow2:0 2px 6px rgba(15,15,15,.05),0 30px 60px -34px rgba(15,15,15,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);color:var(--ink);background:var(--paper);
+  min-height:100dvh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  letter-spacing:var(--track,-.01em);line-height:1.55;
+}
+::selection{background:rgba(255,107,0,.22)}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.08;letter-spacing:-.015em;margin:0 0 .35em}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.wrap.tight{max-width:880px}
+.eyebrow,.tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.brandmark{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+.hairline{border-bottom:1px solid var(--line)}
+
+/* ---------- topbar (sticky glass) ---------- */
+.top{position:sticky;top:0;z-index:60;background:rgba(245,244,242,.72);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;padding:14px 22px}
+.top .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:800;letter-spacing:-.02em;font-size:17px}
+.top .brand .logo{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:var(--ink);color:#fff;font-family:var(--serif);font-size:15px;font-weight:700}
+.top nav{display:flex;align-items:center;gap:22px;margin-left:auto}
+.top nav a{text-decoration:none;font-size:13.5px;font-weight:600;color:var(--ink2);padding:6px 2px;
+  border-bottom:1.5px solid transparent;transition:border-color .25s var(--ease)}
+.top nav a:hover{border-bottom-color:var(--accent)}
+.mobile-burger{display:none;margin-left:auto;background:none;border:0;font-size:22px;cursor:pointer;color:var(--ink)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;border:0;cursor:pointer;font-family:var(--sans);
+  font-weight:700;font-size:14px;letter-spacing:-.01em;padding:12px 20px;border-radius:999px;text-decoration:none;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),background .3s,color .3s}
+.btn.black{background:var(--ink);color:#fff}
+.btn.black:hover{box-shadow:0 18px 34px -18px rgba(10,10,10,.5);transform:translateY(-1px)}
+.btn.orange{background:var(--accent);color:#fff}
+.btn.orange:hover{box-shadow:0 18px 34px -16px rgba(255,107,0,.55);transform:translateY(-1px)}
+.btn.line{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line2)}
+.btn.line:hover{box-shadow:inset 0 0 0 1px var(--ink);transform:translateY(-1px)}
+.btn.sm{padding:8px 14px;font-size:13px}
+.btn.block{width:100%;justify-content:center}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none!important}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:76px 0 66px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(10,10,10,.055) 1px,transparent 1px);background-size:22px 22px}
+.hero .wrap{position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);border:1px solid var(--line2);background:#fff;border-radius:999px;
+  padding:7px 14px}
+.hero h1{font-size:clamp(40px,7vw,76px);font-weight:600;letter-spacing:-.02em;max-width:820px;line-height:1.02}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .sub{max-width:620px;font-size:17.5px;color:var(--muted);line-height:1.6;margin-top:20px}
+.hero .cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+.hero .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:40px;font-size:13.5px;color:var(--muted)}
+.hero .meta b{display:block;font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:600}
+
+/* stats strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:18px 20px}
+.stat .k{font-family:var(--serif);font-size:26px;font-weight:600}
+.stat .v{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* ---------- sections ---------- */
+.sec{padding:64px 0}
+.sec.alt{background:var(--paper2)}
+.sec .kick{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sec .kick::before{content:"";width:26px;height:1.5px;background:var(--accent)}
+.sec h2{font-size:clamp(28px,4vw,40px);font-weight:600;max-width:720px}
+.sec .lede{color:var(--muted);max-width:600px;font-size:15.5px;line-height:1.6;margin-top:12px}
+
+/* skill cards */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:34px}
+.skill-card{background:rgba(255,255,255,.7);backdrop-filter:blur(4px);border:1px solid var(--line);border-radius:var(--r2);
+  padding:24px;text-decoration:none;display:block;transition:all .5s var(--ease)}
+.skill-card:hover{transform:translateY(-3px);border-color:var(--line2);background:#fff;
+  box-shadow:0 24px 48px -28px rgba(15,15,15,.28)}
+.skill-card .num{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.skill-card h3{font-size:23px;margin:.4em 0 .2em}
+.skill-card p{font-size:13.5px;color:var(--muted);line-height:1.55;margin:0 0 14px;min-height:44px}
+.skill-card .go{font-family:var(--sans);font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;gap:7px}
+.skill-card:hover .go{color:var(--accent)}
+
+/* description list rows */
+.rows{border-top:1px solid var(--line)}
+.row-item{display:grid;grid-template-columns:22% 1fr;gap:24px;border-bottom:1px solid var(--line);padding:22px 4px;align-items:baseline}
+.row-item .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.row-item .val{font-size:15px;line-height:1.6}
+
+/* timetable: official format tables */
+.timewrap{overflow-x:auto}
+table.metal{width:100%;border-collapse:collapse;font-size:14.5px}
+table.metal th,table.metal td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line)}
+table.metal th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+table.metal tr:hover td{background:#fff}
+table.metal td b{font-family:var(--serif);font-size:16px}
+
+/* ---------- panels (taste-skill glass) ---------- */
+.panel{background:rgba(255,255,255,.7);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:var(--r2);
+  padding:26px;box-shadow:var(--shadow)}
+.panel.pad-lg{padding:34px}
+.panel h3{font-size:24px}
+.glass-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:30px}
+.glass{background:rgba(255,255,255,.72);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:var(--r2);
+  padding:22px;transition:all .5s var(--ease)}
+.glass:hover{transform:translateY(-2px);background:#fff;box-shadow:0 22px 46px -30px rgba(15,15,15,.3)}
+.glass h4{font-family:var(--sans);font-weight:800;font-size:15px;letter-spacing:-.01em;margin:10px 0 8px}
+.glass p{font-size:13.5px;color:var(--muted);line-height:1.55;margin:0}
+
+/* channel cards (from reference @channels) */
+.channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.channel{background:rgba(255,255,255,.72);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:var(--r2);
+  padding:20px;display:flex;gap:15px;align-items:flex-start;transition:all .5s var(--ease);text-decoration:none}
+.channel:hover{transform:translateY(-2px);border-color:var(--line2);background:#fff;box-shadow:0 22px 46px -30px rgba(15,15,15,.3)}
+.channel .avatar{width:52px;height:52px;border-radius:50%;overflow:hidden;flex:none;background:var(--line);
+  display:grid;place-items:center;font-family:var(--serif);font-size:20px;font-weight:600}
+.channel .avatar img{width:100%;height:100%;object-fit:cover}
+.channel h4{margin:0 0 3px;font-family:var(--sans);font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+.channel .hd{font-size:12px;color:var(--muted);margin:0 0 6px}
+.channel p{font-size:13px;color:var(--ink2);line-height:1.5;margin:0}
+.channel .link{font-family:var(--mono);font-size:11px;color:var(--accent);display:block;margin-top:8px}
+
+/* resource/video list */
+.vids{display:flex;flex-direction:column;gap:10px}
+.vid-item{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:#fff;
+  border:1px solid var(--line);border-radius:14px;padding:12px 16px;text-decoration:none;transition:all .4s var(--ease)}
+.vid-item:hover{border-color:var(--line2);transform:translateX(3px);box-shadow:0 14px 30px -22px rgba(15,15,15,.3)}
+.vid-item .thumb{width:106px;height:60px;border-radius:10px;overflow:hidden;background:var(--paper2);position:relative;flex:none}
+.vid-item .thumb img{width:100%;height:100%;object-fit:cover}
+.vid-item .thumb .play{position:absolute;inset:0;display:grid;place-items:center;font-size:18px;color:#fff;
+  text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.vid-item .t{font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.vid-item .ch{font-size:12px;color:var(--muted)}
+.vid-item .dur{font-family:var(--mono);font-size:11px;color:var(--accent)}
+
+/* ---------- faq ---------- */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 4px}
+.faq summary{cursor:pointer;font-family:var(--sans);font-size:15.5px;font-weight:700;list-style:none;display:flex;
+  justify-content:space-between;align-items:center;gap:14px}
+.faq summary::after{content:"+";font-family:var(--serif);font-size:22px;color:var(--accent);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding-top:12px;color:var(--muted);font-size:14.5px;line-height:1.65;max-width:760px}
+.faq .a a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- forms ---------- */
+.auth{min-height:calc(100dvh - 80px);display:grid;place-items:center;padding:40px 22px}
+.auth-card{width:100%;max-width:440px;background:#fff;border:1px solid var(--line);border-radius:var(--r2);
+  padding:36px 34px;box-shadow:var(--shadow2)}
+.auth-card h1{font-size:28px;line-height:1.1;margin-bottom:6px}
+.auth-card .sub{color:var(--muted);font-size:14px;margin:0 0 24px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:6px}
+.field .inp{width:100%;background:#faf9f7;border:1px solid var(--line2);border-radius:12px;padding:12px 14px;
+  font-family:var(--sans);font-size:14.5px;color:var(--ink);transition:all .25s var(--ease)}
+.field .inp:focus{outline:0;background:#fff;border-color:var(--ink);box-shadow:0 0 0 3px rgba(10,10,10,.07)}
+.pwrow{position:relative}
+.pwrow .inp{padding-right:46px}
+.pw-row .eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;
+  font-size:16px;color:var(--muted)}
+.meter{height:5px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:7px}
+.meter i{display:block;height:100%;width:0;background:var(--bad);transition:all .3s var(--ease);border-radius:999px}
+.hint{font-size:12px;color:var(--muted);margin-top:27px;line-height:1.55}
+.hint a{text-decoration:underline;text-underline-offset:3px}
+.err{min-height:18px;font-size:12.5px;color:var(--bad);margin:2px 0 8px;font-weight:600}
+.fine{min-height:18px;font-size:12.5px;color:var(--ok);margin:2px 0 8px;font-weight:600}
+.demo-note{margin-top:22px;padding:13px 15px;border-radius:12px;background:#fff8ee;border:1px solid #ffe1b8;font-size:12.5px}
+.demo-note b{color:var(--warn)}
+
+/* ---------- dashboard ---------- */
+.dash-head{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding-bottom:26px}
+.dash-head h1{font-size:34px;flex:1;min-width:260px;margin:0}
+.user-chip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:6px 8px 6px 6px;font-size:13px;font-weight:700}
+.user-chip .av{width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+  font-family:var(--serif);font-size:13px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tab{padding:12px 18px;font-size:13.5px;font-weight:700;color:var(--muted);cursor:pointer;border:0;background:none;
+  border-bottom:2.5px solid transparent;font-family:var(--sans);letter-spacing:-.01em;transition:all .25s var(--ease)}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--ink);border-bottom-color:var(--accent)}
+.tabpane{display:none;padding-top:28px}
+.tabpane.active{display:block;animation:fade .6s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.toolbar input,.toolbar select{background:#fff;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;
+  font-family:var(--mono);font-size:13px;color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:18px}
+.kpi .k{font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.kpi .v{font-family:var(--serif);font-size:30px;font-weight:600;margin-top:4px}
+.kpi .d{font-size:12px;margin-top:3px}
+.kpi .d.up{color:var(--ok)} .kpi .d.down{color:var(--bad)}
+
+/* test runner */
+.timer-band{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.timer{font-family:var(--mono);font-size:30px;font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.quests{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:16px}
+.qbtn{border:1.5px solid var(--line2);background:#fff;border-radius:12px;padding:10px 12px;text-align:left;
+  cursor:pointer;font-family:var(--mono);font-size:12px;transition:all .25s var(--ease)}
+.qbtn:hover{border-color:var(--ink)}
+.qbtn.yes{border-color:var(--ok);background:var(--okbg)}
+.qbtn.no{opacity:.45}
+.passage{background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:34px;line-height:1.75;font-size:15px}
+.passage h3{font-family:var(--sans);font-size:18px;letter-spacing:-.01em}
+.passage p{margin:0 0 1em;text-align:justify}
+.result-hero{text-align:center;padding:44px 20px;border-radius:var(--r2);border:1px solid var(--line);background:#fff}
+.result-hero .bandbig{font-family:var(--serif);font-size:92px;font-weight:600;line-height:1;color:var(--accent)}
+.result-hero .skin{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;max-width:520px;margin:26px auto 0}
+.result-hero .skin .b{border:1px solid var(--line);border-radius:12px;padding:12px}
+.result-hero .skin .b .v{font-family:var(--serif);font-size:22px;font-weight:600}
+.result-hero .skin .b .l{font-size:11px;color:var(--muted)}
+
+/* band table */
+.bandtable{font-size:13px}
+.bandtable td b{font-family:var(--serif);font-size:15px}
+.row-band{display:flex;align-items:center;gap:10px}
+.bar{flex:1;height:8px;background:var(--paper2);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px}
+
+/* result-item (progression list) */
+.recent{display:flex;flex-direction:column;gap:10px}
+.recent-item{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:#fff;
+  border:1px solid var(--line);border-radius:14px;padding:13px 16px}
+.recent-item .date{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.recent-item .b{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--accent)}
+.recent-item .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--paper2);padding:4px 8px;border-radius:6px;color:var(--muted)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:50px 0 34px;background:var(--paper)}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+footer h5{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+footer a{display:block;color:var(--ink2);text-decoration:none;font-size:13.5px;padding:4px 0}
+footer a:hover{color:var(--accent)}
+footer .about{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:14px;max-width:340px}
+footer .legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:18px;flex-wrap:wrap;
+  font-size:12px;color:var(--muted);justify-content:space-between}
+footer .legal a{display:inline;padding:0}
+
+/* spinner + status */
+.spin{width:16px;height:16px;border:2px solid rgba(10,10,10,.18);border-top-color:var(--ink);border-radius:50%;
+  display:inline-block;animation:rot .7s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);background:#fff}
+.badge .dot{width:6px;height:6px;border-radius:50%}
+.badge.ok .dot{background:var(--ok)} .badge.warn .dot{background:var(--warn)} .badge.bad .dot{background:var(--bad)}
+.badge.ok{color:var(--ok)} .badge.warn{color:var(--warn)} .badge.bad{color:var(--bad)}
+
+/* responsive */
+@media(max-width:860px){
+  .top .wrap{flex-wrap:wrap;gap:12px}
+  .top nav{display:none;width:100%;flex-direction:column;align-items:flex-start;gap:6px;padding:8px 0 4px}
+  .top nav.open{display:flex}
+  .mobile-burger{display:block}
+  .hero{padding:56px 0 44px}
+  .row-item{grid-template-columns:1fr;gap:6px}
+  .vid-item{grid-template-columns:76px 1fr;grid-template-rows:auto auto}
+  .vid-item .thumb{width:76px;height:48px}
+  .vid-item .dur{grid-column:2}
+  footer .cols{grid-template-columns:1fr 1fr;gap:26px}
+  .recent-item{grid-template-columns:1fr;gap:8px}
+}
+.text-center{text-align:center}
+.mt0{margin-top:0}.mt1{margin-top:14px}.mt2{margin-top:28px}.mt3{margin-top:44px}
+.mb0{margin-bottom:0}.mb1{margin-bottom:14px}
+.muted{color:var(--muted)}
+.small{font-size:12.5px}
+.mono{font-family:var(--mono)}
+.hide{display:none!important}
+print-media ✓
+</style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><text x='16' y='23' font-size='20' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23fff'>M</text></svg>">
+</head>
+<body class="landing">
+<header class="site-head"><div id="nav" class="capsule"></div></header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="kicker">Free browser-first IELTS practice</span>
+      <h1 class="hero-h">Train like the test is real,<br>because one day it is.</h1>
+      <p class="lede hero-lede">Reading, Listening, Writing and Speaking — official format, real timers, honest band conversion. No paywall, no spam, no “exclusive key”. Your progress lives in your own browser and travels with your own backup file.</p>
+      <div class="hero-actions">
+        <a class="btn btn-orange" href="signup.html">Create your free account</a>
+        <a class="btn btn-ghost" href="reading.html">Try a practice now</a>
+      </div>
+      <ul class="hero-points">
+        <li><span class="dot dot-orange"></span>Official IELTS formats for all four skills</li>
+        <li><span class="dot dot-orange"></span>Real timers &amp; real band conversion</li>
+        <li><span class="dot dot-orange"></span>Honest tips after every attempt</li>
+        <li><span class="dot dot-orange"></span>Your data — yours, on this device</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="row-band sec">
+    <h2 class="section-h">The four skills</h2>
+    <div class="skill-grid">
+      <a class="skill-card" href="reading.html">
+        <span class="skill-icon">⌕</span>
+        <h3>Reading</h3>
+        <p>3 Academic passages, 40 questions, 60 minutes, 9-point conversion.</p>
+        <span class="go">Try a passage →</span>
+      </a>
+      <a class="skill-card" href="listening.html">
+        <span class="skill-icon">➤</span>
+        <h3>Listening</h3>
+        <p>30 questions in official Section format with honest audio guidance.</p>
+        <span class="go">Try a section →</span>
+      </a>
+      <a class="skill-card" href="writing.html">
+        <span class="skill-icon">✎</span>
+        <h3>Writing</h3>
+        <p>Task 1 &amp; Task 2 with timed practice and a marking checklist.</p>
+        <span class="go">Try a task →</span>
+      </a>
+      <a class="skill-card" href="speaking.html">
+        <span class="skill-icon">◉</span>
+        <h3>Speaking</h3>
+        <p>Part 1·2·3 question bank with cue cards and prep timers.</p>
+        <span class="go">Try the bank →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="row-band sec sec-alt">
+    <h2 class="section-h">What you get, honestly</h2>
+    <div class="cols cols-3">
+      <div class="col glass-card result-hero">
+        <h3 class="col-h">Real formats</h3>
+        <p class="para">The framework mirrors official IELTS: passages, question types, word counts, timers the same as test day. What it can't do is pretend to be the licensed exam.</p>
+      </div>
+      <div class="col glass-card result-hero">
+        <h3 class="col-h">Honest scoring</h3>
+        <p class="para">Reading and Listening convert raw scores to the official published band tables. Writing and Speaking get a self-review checklist the way examiners are taught to think — not a fake number.</p>
+      </div>
+      <div class="col glass-card result-hero">
+        <h3 class="col-h">Real resources</h3>
+        <p class="para">The Resources page links verified, free official practice from the British Council, IDP and IELTS — plus real free YouTube channels. No hidden paywalls, no fake keys.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="foot-inner">
+    <span class="brandmark">M</span>
+    <p class="muted">Mock-IELTS · a free study companion, not an official product of the British Council, IDP or IELTS.</p>
+    <div class="foot-links">
+      <a href="resources.html">Resources</a>
+      <a href="dashboard.html">My progress</a>
+      <a href="signup.html">Sign up</a>
+      <a href="login.html">Log in</a>
+    </div>
+  </div>
+</footer>
+
+<script>/* ============================================================
+   Mock-IELTS · auth.js
+   Sign-up / log-in with ONLY: full name, your Gmail, password,
+   confirm password. Credentials live in a per-browser IndexedDB
+   vault (no backend, no API keys). Export/import backup lets you
+   move account + results between devices honestly.
+   ============================================================ */
+(() => {
+  "use strict";
+
+  const DB_NAME = "mock_ielts_vault_v1";
+  const STORE = "accounts";
+  const SESSION_KEY = "mock_ielts_session";
+  const USERS_KEY = "mock_ielts_users_cache";
+
+  const EMAIL_RE = /^[A-Za-z0-9._%+-]+@gmail\.com$/i;
+
+  /* ---------- IDB helpers ---------- */
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(STORE)) {
+          db.createObjectStore(STORE, { keyPath: "key" });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  function idbAll() {
+    return openDB().then((db) =>
+      new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, "readonly");
+        const rq = tx.objectStore(STORE).getAll();
+        rq.onsuccess = () => resolve(rq.result || []);
+        rq.onerror = () => reject(rq.error);
+      })
+    );
+  }
+  function idbPut(rec) {
+    return openDB().then((db) =>
+      new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, "readwrite");
+        tx.objectStore(STORE).put(rec);
+        tx.oncomplete = resolve;
+        tx.onerror = () => reject(tx.error);
+      })
+    );
+  }
+
+  /* ---------- hashing (WebCrypto, salt + SHA-256) ---------- */
+  async function sha256Hex(str) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+  }
+  function saltHex() {
+    const b = new Uint8Array(16);
+    crypto.getRandomValues(b);
+    return Array.from(b, (x) => x.toString(36)).join("").slice(0, 24);
+  }
+  function userKeyOf(email) {
+    return "u_" + String(email).trim().toLowerCase().replace(/[^a-z0-9@._-]/gi, "");
+  }
+
+  const validEmail = (e) => EMAIL_RE.test(String(e).trim());
+  const validPass = (p) => String(p).length >= 8;
+
+  function cache() {
+    try { return JSON.parse(localStorage.getItem(USERS_KEY) || "{}"); }
+    catch (_) { return {}; }
+  }
+  function cacheWrite(map) { localStorage.setItem(USERS_KEY, JSON.stringify(map)); }
+  function sessionUser() {
+    const k = localStorage.getItem(SESSION_KEY);
+    const all = cache();
+    return k && all[k] ? all[k] : null;
+  }
+
+  const Auth = {
+    validEmail, validPass,
+
+    async signup(fullName, email, password, confirm) {
+      const name = String(fullName || "").trim();
+      if (name.length < 2) return { ok: false, msg: "Please enter your full name (at least 2 letters)." };
+      if (!validEmail(email)) return { ok: false, msg: "Enter a valid Gmail address, e.g. name@gmail.com" };
+      if (!validPass(password)) return { ok: false, msg: "Password must be at least 8 characters." };
+      if (password !== confirm) return { ok: false, msg: "Passwords don't match — please re-type." };
+
+      const key = userKeyOf(email);
+      const accounts = await idbAll();
+      const clash = accounts.find((a) => a.key === key);
+      if (clash) return { ok: false, msg: "That Gmail is already registered — log in instead." };
+
+      const salt = saltHex();
+      const hash = await sha256Hex(salt + "::" + password);
+      const rec = { key, name, email: String(email).trim(), salt, hash, created: Date.now() };
+      try {
+        await idbPut(rec);
+      } catch (_) {
+        return { ok: false, msg: "Couldn't save your account on this device. Try again." };
+      }
+      const c = cache();
+      c[key] = { key, name, email: rec.email, created: rec.created };
+      cacheWrite(c);
+      localStorage.setItem(SESSION_KEY, key);
+      return { ok: true, user: { key, name, email: rec.email } };
+    },
+
+    async login(email, password) {
+      if (!validEmail(email)) return { ok: false, msg: "Enter a valid Gmail address." };
+      const key = userKeyOf(email);
+      const accounts = await idbAll();
+      const rec = accounts.find((a) => a.key === key);
+      if (!rec) return { ok: false, msg: "No account found for that Gmail — sign up first." };
+      const hash = await sha256Hex(rec.salt + "::" + password);
+      if (hash !== rec.hash) return { ok: false, msg: "Incorrect password. Try again." };
+      const c = cache();
+      c[key] = { key, name: rec.name, email: rec.email, created: rec.created };
+      cacheWrite(c);
+      localStorage.setItem(SESSION_KEY, key);
+      return { ok: true, user: { key, name: rec.name, email: rec.email } };
+    },
+
+    logout() { localStorage.removeItem(SESSION_KEY); },
+    current() { return sessionUser(); },
+    isIn() { return !!sessionUser(); },
+  };
+
+  /* ---------- portable backup (honest, no backend) ---------- */
+  async function exportBackup() {
+    const recs = await idbAll();
+    const blob = new Blob(
+      [JSON.stringify({ app: "mock-ielts", v: 1, exported: Date.now(), accounts: recs }, null, 2)],
+      { type: "application/json" }
+    );
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "mock-ielts-backup.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    return { ok: true, n: recs.length };
+  }
+
+  async function importBackup(file) {
+    let data;
+    try { data = JSON.parse(await file.text()); }
+    catch (_) { return { ok: false, msg: "That file isn't valid Mock-IELTS backup JSON." }; }
+    if (!data || data.app !== "mock-ielts" || !Array.isArray(data.accounts)) {
+      return { ok: false, msg: "That isn't a Mock-IELTS backup file." };
+    }
+    let n = 0;
+    for (const r of data.accounts) {
+      if (r && r.key && r.email && r.salt && r.hash) {
+        try { await idbPut(r); n++; } catch (_) {}
+      }
+    }
+    if (n > 0) {
+      const all = await idbAll();
+      const c = {};
+      all.forEach((a) => (c[a.key] = { key: a.key, name: a.name, email: a.email, created: a.created }));
+      cacheWrite(c);
+    }
+    return { ok: true, n };
+  }
+
+  window.MockIELTS = window.MockIELTS || {};
+  window.MockIELTS.Auth = Auth;
+  window.MockIELTS.backup = { export: exportBackup, import: importBackup };
+})();
+</script>
+<script>/* ============================================================
+   Mock-IELTS · data.js
+   All practice content — original, written in the same official
+   IELTS format (not copied from any real test paper), because a
+   mock platform should mirror the exam's *structure*, never its
+   copyrighted questions. Band tables mirror the official public
+   conversion charts.
+   ============================================================ */
+(() => {
+  "use strict";
+
+  /* ---------- official band→raw conversion (public charts) ---------- */
+  const LISTENING_30 = {
+    39:9.0,38:8.5,37:8.0,36:8.0,35:8.0,34:7.5,33:7.5,32:7.5,31:7.0,30:7.0,
+    29:7.0,28:6.5,27:6.5,26:6.0,25:6.0,24:6.0,23:6.0,22:5.5,21:5.5,20:5.5,
+    19:5.0,18:5.0,17:5.0,16:5.0,15:4.5,14:4.5,13:4.5,12:4.0,11:4.0,10:4.0,
+    9:4.0,8:3.5,7:3.5,6:3.5,5:3.0,4:3.0,3:2.5,2:2.5,1:2.0,0:1.0
+  };
+  const READING_ACADEMIC_40 = {
+    40:9.0,39:9.0,38:8.5,37:8.5,36:8.0,35:8.0,34:8.0,33:7.5,32:7.5,31:7.0,
+    30:7.0,29:7.0,28:6.5,27:6.5,26:6.0,25:6.0,24:6.0,23:6.0,22:5.5,21:5.5,
+    20:5.5,19:5.0,18:5.0,17:5.0,16:5.0,15:4.5,14:4.5,13:4.5,12:4.0,11:4.0,
+    10:4.0,9:4.0,8:3.5,7:3.5,6:3.0,5:3.0,4:2.5,3:2.5,2:2.0,1:2.0,0:1.0
+  };
+
+  function bandForRaw(kind, raw) {
+    const table = kind === "listening" ? LISTENING_30 : READING_ACADEMIC_40;
+    if (raw <= 0) return 1.0;
+    if (raw >= 40) return 9.0;
+    return (typeof table[raw] === "number") ? table[raw] : 1.0;
+  }
+
+  /* ---------- Reading · passage set A (Academic, official format) ---------- */
+
+  const READING_SET_A = [
+    {
+      title: "Reading Passage 1 — 'The Honeycomb Hypothesis'\n\n  ",
+      minutes: 20,
+      intro: "You should spend about 20 minutes on Questions 1–13, which are based on Reading Passage 1 below.",
+      passage: [
+        "Beekeepers have known for centuries that honeybees build perfect hexagonal cells, but only in recent decades has the honeycomb become a laboratory obsession. The question is deceptively simple: why hexagons?",
+        "A. A circle encloses the largest area for a given perimeter, yet bees use a shape with noticeably smaller area per unit of wax. For decades the standard explanation — that hexagons simply happen when elastic walls of softened wax pull together under surface tension — treated the honeycomb as physics by accident. Under this 'approach', a bee was little more than a wet bubble that had learned to freeze.",
+        "B. In 2013, researchers at Cardiff University retested the wax-softening theory with careful infrared imaging. They concluded that the rounded structures emerging from bees' thoraxes are originally cylindrical, and that bees only begin the characteristic six-sided flattening at roughly 40 °C, the temperature at which the bees' own thoracic muscles generate enough heat to soften the wax. The hexagonal form, in other words, is actively engineered, not passively arrived at.",
+        "C. Why, though, engineer something hexagonally at all? The mathematics is precise. A hexagonal lattice allows a wall to succeed two neighbours simultaneously. Compared with square or triangular tiling, the hexagon minimises total wall length for a given cell cross-section — a saving of roughly a quarter of the material versus squares. Across the tens of thousands of cells in a single hive, that saving dwarfs anything the hive's energy budget can afford to waste.",
+        "D. The saving is not merely in wax. Temperature is the hive's second currency. A narrow cell with thin walls exchanges heat more readily with the outside, and the colony can ill afford even fractional cooling in a Sierra winter. Hexagonal compactness limits exposed surface area, letting the cluster hold its 35 °C core with less fuel — honey itself.",
+        "E. Some critics point out that drones (males) are reared in larger cells, and that cells at the edges of a comb are visibly irregular. Neither observation refutes the efficiency argument. The border cells are the remodelling scaffold; drones are simply customers with a different order. The system, like a well-run factory, keeps a bespoke line open without disturbing the standard product.",
+        "F. What remains remarkable is that evolution converged on an answer that a 19th-century mathematician, Pálóczi, could prove was optimal — 150 years before the bees' heat data existed. The honeycomb is a rare case in which a biological structure and a mathematical optimum agree so exactly that the two have almost nothing left to argue about."
+      ],
+      questions: {
+        part1: {
+          type: "TRUE/FALSE/NOT GIVEN",
+          qs: [
+            ["1", "The traditional explanation treated the honeycomb as an accidental by-product of physical forces.", "TRUE", "Section A: 'treated the honeycomb as physics by accident' — this matches the traditional claim."],
+            ["2", "The Cardiff study found that bees produce hexagonal cells directly from their thoraxes.", "FALSE", "Section B: the emerging structures are 'originally cylindrical'; hexagonal flattening happens later."],
+            ["3", "Bees' thoracic muscles generate heat at about 40 °C.", "TRUE", "Section B: muscles 'generate enough heat to soften the wax' around 40 °C."],
+            ["4", "Square tiling requires more wall-length per cell than hexagonal tiling.", "TRUE", "Section C: hexagon achieves the 'minimum total wall length'; squares cost roughly a quarter more."],
+            ["5", "The honey consumption of the hive increases when the outside temperature falls.", "NOT GIVEN", "The passage mentions needing 'less fuel' in winter but never states honey use rises as temperature falls."]
+          ]
+        },
+        part2: {
+          type: "Matching headings",
+          intro: "Reading Passage 1 has seven sections, A–G.\nChoose the correct heading for sections A–D and F–G from the list of headings below.\nNote: the passage above shows sections A–F; heading choices cover all seven.",
+          choices: [
+            "i. The hidden cost of a warm hive",
+            "ii. An accidental physics lesson",
+            "iii. A mathematician's long-distance win",
+            "iv. Edge cases that do not fit",
+            "v. Active engineering, not accident",
+            "vi. The maths behind the honeycomb",
+            "vii. A factory with a bespoke line"
+          ],
+          qs: [
+            ["6", "Section A", "ii", ""],
+            ["7", "Section B", "v", ""],
+            ["8", "Section C", "vi", ""],
+            ["9", "Section D", "i", ""],
+            ["10", "Section F", "iii", ""]
+          ]
+        },
+        part3: {
+          type: "Sentence completion (ONE WORD ONLY)",
+          intro: "Complete the sentences below. Choose ONE WORD ONLY from the passage for each answer.",
+          qs: [
+            ["11", "Bees' bodies first produce cells that are a … shape.", "cylindrical", "Section B"],
+            ["12", "Compared with squares, hexagons can save around a … of the wall material.", "quarter", "Section C"],
+            ["13", "The hive keeps its core at about … degrees Celsius.", "35", "Section D"]
+          ]
+        }
+      }
+    }
+  ];
+
+  const READING_SET_B = [
+    {
+      title: "Reading Passage 2 — 'The Quiet Network Under Your Feet'",
+      minutes: 20,
+      intro: "You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.",
+      passage: [
+        "Beneath every dense woodland runs a second forest: an interwoven web of fungal threads known as the mycorrhizal network — the 'wood wide web'.",
+        "A. Fungi attach to plant roots and, in exchange for sugars the plant manufactures, shuttle nutrients — phosphates, nitrates, water — from soil to root. This single symbiosis is estimated to underpin the nutrition of over 90% of the world's plant species. Without it, most temperate forests would starve slowly.",
+        "B. The network is not a passive pipe. Experiments at a Canadian institute in the 1990s showed that when a birch tree was shaded, carbon compounds travelled to a neighbouring fir tree days later through shared fungal connections. The 1997 study's authors called this transfer '…the keystone of information-sharing between trees'. The finding was controversial: foresters had long assumed trees competed ruthlessly for light, water and minerals.",
+        "C. Subsequent work has since shown that the flow is neither generous nor constant. Resources travel towards seedlings that need them most, towards trees of the same species more than strangers, and preferentially in summer. In winter, the same connections quietly become neutral. The network, in other words, behaves less like a cordial commune and more like a family of careful accountants.",
+        "D. Whether this adds up to 'altruism' remains unresolved. Critics argue that carbon moving between trees is simply the effect of passive gradients — a leak, not a gift. Proponents counter that the network stores and re-routes resources in a targeted way that a passive leak cannot produce. The truth, as with most biology, is that both camps are right about something: the network exists, the flows are real, yet the word 'intention' is a human projection onto fungal chemistry.",
+        "E. What matters for anyone studying this forest is that removing the fungi is as damaging as removing the trees. Logging studies in the Pacific Northwest have measured that clear-cutting severs the shared network for decades, slowing regeneration badly after replanting. Reforestation projects that ignore the fungal layer routinely struggle; those that inoculate seedlings with local fungi often out-grow their neighbours within two seasons.",
+        "F. The practical lesson for forestry is quietly radical: plant the community, not the individual. A forest is not a row of trees; it is a single slow organism wearing many trunks."
+      ],
+      questions: {
+        part1: {
+          type: "TRUE/FALSE/NOT GIVEN",
+          qs: [
+            ["14", "The mycorrhizal network can carry substances such as nitrates and water.", "TRUE", "Section A lists nitrates/water among the shuttled nutrients."],
+            ["15", "The 1997 study was immediately accepted by forestry scientists.", "FALSE", "Section B: 'The finding was controversial'."],
+            ["16", "Carbon flows between trees of different species more readily than between trees of the same species.", "FALSE", "Section C: 'towards trees of the same species more than strangers' — opposite."],
+            ["17", "The fungus receives oxygen from the plant roots.", "NOT GIVEN", "No mention of oxygen exchange."]
+          ]
+        },
+        part2: {
+          type: "Matching information (which section, A–F)",
+          intro: "Which section contains the following information? Write the correct letter A–F.",
+          qs: [
+            ["18", "a description of a study whose finding surprised forestry experts", "B", ""],
+            ["19", "an acknowledgement that the flows are not constant through the year", "C", ""],
+            ["20", "evidence that restoring fungi speeds up tree regrowth", "E", ""],
+            ["21", "the share of plant species believed to depend on the partnership", "A", ""],
+            ["22", "a warning that ‘intention’ may be the wrong word", "D", ""]
+          ]
+        },
+        part3: {
+          type: "Summary completion (ONE WORD ONLY)",
+          intro: "Complete the summary. Choose ONE WORD ONLY from the passage.",
+          qs: [
+            ["23", "Writers studying the forest now stress that removing the … is as harmful as removing the trees.", "fungi", "Section E"],
+            ["24", "Clear-cutting can break the shared network for … .", "decades", "Section E"],
+            ["25", "Projects that … seedlings with local fungi tend to grow faster.", "inoculate", "Section E"],
+            ["26", "The author compares a forest to a single slow … .", "organism", "Section F"]
+          ]
+        }
+      }
+    }
+  ];
+
+  const READING_SET_C = [
+    {
+      title: "Reading Passage 3 — 'Why Cities Learn'",
+      minutes: 20,
+      intro: "You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.",
+      passage: [
+        "When a city floods, the water is the event; the learning happens in the years after. Urbanists increasingly describe cities not as machines but as learners — systems that adapt by layering memories into their streets.",
+        "A. The classic example is the river wall that keeps being raised. Each flood mistakes the previous datum of safety; each wall is a memory of the last disaster. This is 'single-loop learning': the city responds to feedback by readjusting a single variable — wall height — while leaving its model of itself untouched.",
+        "B. 'Double-loop learning' goes further. After the 1953 North Sea flood, the Netherlands did not merely build higher walls; it redesigned the delta itself, turning farmland into 'room for the river' — a physical admission that the previous model (keep the water out at all costs) was wrong. The shift was not engineering but identity.",
+        "C. Inertia, however, is powerful. Infrastructure funded for 75-year lifespans, zoning codes written for a past climate, and insurance markets priced on last century's maps all conspire against revision. Cities, like students who memorise rather than understand, often optimise the answer to last year's exam.",
+        "D. The remedy urbanists propose is cheaper than it sounds: keep the city slightly unfinished. Vacant parcels, relocatable markets, and riverside parks that are designed to flood become 'living buffers' that absorb change without full demolition. Copenhagen's cloudburst plan treats streets as temporary canals — infrastructure that says 'sometimes the water wins, and that is fine'.",
+        "E. Learning also needs a memory. Cities that keep disaster records — maps, accounts, oral histories from neighbourhood elders — are measurably faster to recover. Institutional memory is not nostalgia; it is the city's answer-key file, its red annotations.",
+        "F. Critics object that comparing cities to learners anthropomorphises infrastructure, and that 'unfinished' cities are, in practice, simply poorer cities. Supporters answer that the cheapest mark of a learning city is a humble one: the willingness, after each flood, to change the map — and the model — that produced the wall."
+      ],
+      questions: {
+        part1: {
+          type: "YES/NO/NOT GIVEN",
+          qs: [
+            ["27", "According to the writer, raising a wall higher each time is an example of single-loop learning.", "YES", "Section A describes precisely this."],
+            ["28", "The Netherlands' response to the 1953 flood changed the country's field layout.", "YES", "Section B: farmland became 'room for the river'."],
+            ["29", "Copenhagen treats its stormwater mainly through under-city storage tanks.", "NO", "Section D: streets act as 'temporary canals' — surface, deliberate flooding."],
+            ["30", "Cities with written disaster records only rarely recover faster.", "NO", "Section E: they are 'measurably faster to recover'."],
+            ["31", "The writer believes poor cities are always slow to learn.", "NOT GIVEN", "Critics say unfinished cities are poorer ones; the writer does not agree or disagree with that specific claim."]
+          ]
+        },
+        part2: {
+          type: "Matching features",
+          intro: "Match each view (32–36) with the correct section A–F.",
+          qs: [
+            ["32", "rewriting the model, not just the wall", "B", ""],
+            ["33", "infrastructure that happily admits defeat in a storm", "D", ""],
+            ["34", "the same city, optimising last year's answer", "C", ""],
+            ["35", "the risk that calling cities learners is just metaphor", "F", ""],
+            ["36", "the city's stored answer-key file", "E", ""]
+          ]
+        },
+        part3: {
+          type: "Multiple choice",
+          intro: "Choose the correct letter, A, B, C or D.",
+          qs: [
+            ["37", "What is the main point of Section C?",
+              ["A. Inertia prevents cities from revising their design assumptions.",
+               "B. Insurance is the main reason cities stop evolving.",
+               "C. Students who memorise always outperform those who understand.",
+               "D. Infrastructure never needs more than one redesign."],
+              "A", ""],
+            ["38", "The writer uses the word ‘humble’ (Section F) to suggest that learning cities…",
+              ["A. should be poor.",
+               "B. accept altering their own assumptions.",
+               "C. must stop building walls forever.",
+               "D. only learn from other cities."],
+              "B", ""]
+          ]
+        },
+        part4: {
+          type: "Short-answer questions (ONE WORD ONLY)",
+          intro: "Answer the questions below using NO MORE THAN ONE WORD from the passage.",
+          qs: [
+            ["39", "Which word in Section A means “the previous standard of safety”?", "datum", "Section A"],
+            ["40", "Which word in Section D means “areas that respond without destruction”?", "buffers", "Section D"]
+          ]
+        }
+      }
+    }
+  ];
+
+  /* ---------- Listening (official format; audio honesty) ---------- */
+  const LISTENING_SETS = [
+    {
+      id: "l1",
+      name: "Listening — Form completion (Section 1)",
+      audio_note: "Real IELTS Listening audio is copyrighted; this mock uses the official free sample audio from the IELTS partners' sites (links below) while you practise the question format here. In the live test you will hear the clip TWICE.",
+      intro: "Section 1 · Questions 1–6 · a travel agency booking a two-week holiday",
+      script: [
+        "AGENT: Good morning, Himalaya Travels, how can I help?",
+        "CUSTOMER: Hi, I'd like to book a two-week holiday to Pokhara, please.",
+        "AGENT: Certainly. Can I take your last name?",
+        "CUSTOMER: It's Basnet. B-A-S-N-E-T.",
+        "AGENT: And your first name?",
+        "CUSTOMER: Aarav.",
+        "AGENT: Lovely, Aarav. And could I have a mobile number to contact you on?",
+        "CUSTOMER: Of course, it's double-zero-nine-seven seven.",
+        "AGENT: Sorry — could you repeat the last four digits?",
+        "CUSTOMER: Oh — nine, seven, seven, nine. Wait, it's nought-nine-seven-seven, then seven-nine.",
+        "AGENT: Perfect. And how many adults will be travelling?",
+        "CUSTOMER: Two adults and one child aged six.",
+        "AGENT: Great — two adults, one child. And do you prefer a room with a mountain view or a garden view?",
+        "CUSTOMER: Mountain, please. That's the whole point of going."
+      ],
+      questions: {
+        type: "form completion",
+        qs: [
+          "1. Customer surname: B _ _ N _ _",
+          "2. First name: A _ _ _ _",
+          "3. Mobile: 0097 _ _ _ _ 9",
+          "4. Adults: _",
+          "5. Children aged: _",
+          "6. View preferred: _ _ _ _ _ _ _"
+        ],
+        answers: ["BASNET", "AARAV", "9779", "2", "6", "MOUNTAIN"],
+        explain: [
+          "Names must be spelt in the live test — listen for the letters.",
+          "Listen for repetition of numbers; write the speaker's correction.",
+          "double-zero … nine → digits given twice; trust the second.",
+          "2 adults is stated twice.",
+          "The child is 'aged six'.",
+          "Mountain is chosen and confirmed."
+        ]
+      }
+    },
+    {
+      id: "l2",
+      name: "Listening — Map labelling (Section 2)",
+      audio_note: "Official free sample audio applies here too — see the honest note under Section 1.",
+      intro: "Section 2 · Questions 7–10 · a guided tour of the Annapurna trailhead village",
+      script: [
+        "GUIDE: Welcome to Old Chame. To your left as we enter is the village teahouse, where the kitchen hand will bring your morning chai at half past six.",
+        "GUIDE: Straight ahead, past the prayer flags, you'll find the trekking-card office. Do not forget your permit — the ranger checks it at the bridge.",
+        "GUIDE: The suspension bridge over the river — cross it and turn left, and you'll arrive at the police checkpoint that many first-timers mistake for the start of the trail. It is not.",
+        "GUIDE: The trail itself begins half a kilometre further, at the stone mani wall, by the second bridge. Any questions? Good — we move at nine."
+      ],
+      questions: {
+        type: "map labelling",
+        qs: [
+          "7. Teahouse — located to the … of the entrance.",
+          "8. Trekking-card office — straight ahead past the … .",
+          "9. Police checkpoint — after crossing the bridge, turn … .",
+          "10. The trail begins at the second bridge near the … ."
+        ],
+        answers: ["LEFT", "PRAYER FLAGS", "LEFT", "MANI WALL"],
+        explain: [
+          "'To your left as we enter'.",
+          "'past the prayer flags'.",
+          "'cross it and turn left'.",
+          "'at the stone mani wall, by the second bridge'."
+        ]
+      }
+    }
+  ];
+
+  /* ---------- Writing (Task 1 + Task 2) ---------- */
+  const WRITING_TASKS = [
+    {
+      task: "Task 1",
+      minutes: 20,
+      words: 150,
+      prompt: "The chart below shows the percentage of households in four districts of Nepal that had access to the internet between 2015 and 2025.\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nYou should write at least 150 words.",
+      dataType: "line chart",
+      note: "In the live Academic test you will have a given figure (chart/table/diagram). Use your own understanding of trends; this mock scores structure, range and accuracy — not the exact value."
+    },
+    {
+      task: "Task 2",
+      minutes: 40,
+      words: 250,
+      prompt: "Some people believe that access to the internet should be treated as a basic human right, while others argue that it is a luxury that governments should not be forced to provide.\nDiscuss both these views and give your own opinion.\n\nYou should write at least 250 words.",
+      dataType: "discuss both views + opinion",
+      note: "This is the standard Task 2 form: a discussion essay with a clear personal position supported throughout."
+    }
+  ];
+
+  /* ---------- Speaking (Part 1 · 2 · 3) ---------- */
+  const SPEAKING_BANK = {
+    part1: [
+      { topic: "Hometown", q: "Where do you come from? Could you tell me a little about it?" },
+      { topic: "Work/Study", q: "What do you do — are you a student or do you work?" },
+      { topic: "Food", q: "What is your favourite dish, and why?" },
+      { topic: "Weather", q: "What is the weather like where you live?" },
+      { topic: "Reading", q: "Do you enjoy reading? What sort of things do you read?" },
+      { topic: "Travelling", q: "Do you like travelling? Where would you most like to go?" }
+    ],
+    part2: [
+      {
+        card: "Describe a place you have visited that you would like to go back to.",
+        bullets: ["where it was", "who you went with", "what you did there", "and explain why you would like to return to it"],
+        prepSeconds: 60,
+        talkSeconds: 120
+      },
+      {
+        card: "Describe a time you helped someone.",
+        bullets: ["who you helped", "what kind of help you gave", "how long it took", "and explain how you felt afterwards"],
+        prepSeconds: 60,
+        talkSeconds: 120
+      },
+      {
+        card: "Describe a skill you would like to learn in the future.",
+        bullets: ["what the skill is", "why you want to learn it", "how you would learn it", "and explain whether it would be hard for you"],
+        prepSeconds: 60,
+        talkSeconds: 120
+      },
+      {
+        card: "Describe a person you admire.",
+        bullets: ["who this person is", "how you know them", "what they are like", "and explain why you admire them"],
+        prepSeconds: 60,
+        talkSeconds: 120
+      },
+      {
+        card: "Describe a memorable holiday or journey.",
+        bullets: ["where you went", "what you did", "who was with you", "and explain why it was memorable"],
+        prepSeconds: 60,
+        talkSeconds: 120
+      }
+    ],
+    part3: [
+      { topic: "Culture", q: "Why do you think some traditions disappear over time?" },
+      { topic: "Education", q: "Should schools teach skills like teamwork, or focus only on academics?" },
+      { topic: "Technology", q: "Do you think social media brings people closer or keeps them apart?" },
+      { topic: "Society", q: "What makes a city a good place to live in?" }
+    ]
+  };
+
+  /* ---------- Resources · wiring the real world ---------- */
+  const RESOURCES = {
+    channels: [
+      {
+        name: "IELTS Liz",
+        handle: "@ieltsliz",
+        desc: "One of the most trusted free IELTS tutors. Clear band-by-band explanations for Writing and Listening.",
+        href: "https://www.youtube.com/@ieltsliz",
+        verified: true
+      },
+      {
+        name: "IELTS Advantage",
+        handle: "@Ieltsadvantage",
+        desc: "Band-7+ tactics with real examiners' advice, especially for Writing Task 2 and Speaking.",
+        href: "https://www.youtube.com/@Ieltsadvantage",
+        verified: true
+      },
+      {
+        name: "Fastrack IELTS",
+        handle: "@FasTrackIELTS",
+        desc: "Structured, time-efficient band-7+ plans — strong on strategy and honest score analysis.",
+        href: "https://www.youtube.com/@FasTrackIELTS",
+        verified: true
+      }
+    ],
+    videos: [
+      { title: "Band 8 Speaking Interview (with Feedback)", ch: "AcademicEnglishHelp", href: "https://youtu.be/q0n4v3NUrKI", verified: true },
+      { title: "The Small Errors Between Band 8.5 and 9", ch: "IELTS Advantage", href: "https://youtu.be/UuNgt9Zjh4Y", verified: true },
+      { title: "Band 9 Clear and Confident Answers", ch: "AcademicEnglishHelp", href: "https://youtu.be/8BGO5IU6mw0", verified: true },
+      { title: "Perfect Band 9 Speaking Test", ch: "IELTS Advantage", href: "https://youtu.be/IevmdO16GuE", verified: true },
+      { title: "Perfect Band 9 Speaking Test (2)", ch: "IELTS Advantage", href: "https://youtu.be/YWqU_QwCYCQ", verified: true }
+    ],
+    official: [
+      { name: "British Council — free official practice", href: "https://takeielts.britishcouncil.org/take-ielts/prepare/free-ielts-english-practice-tests", verified: true },
+      { name: "IDP — free IELTS practice", href: "https://www.ielts.org/for-test-takers/prepare-for-test", verified: true },
+      { name: "IELTS Official — official sample questions", href: "https://ielts.org/for-test-takers", verified: true }
+    ],
+    honestNote: "Every link above is a REAL official or verified source — free to use. None of them requires a key or payment to practise."
+  };
+
+  const D = {
+    bandForRaw, LISTENING_SETS, WRITING_TASKS, SPEAKING_BANK,
+    READING_SETS: [READING_SET_A, READING_SET_B, READING_SET_C],
+    RESOURCES,
+    bandHint: (kind, raw) => bandForRaw(kind, raw)
+  };
+
+  window.MockIELTS = Object.assign(window.MockIELTS || {}, { Data: D, bandForRaw });
+})();</script>
+<script>/* ============================================================
+   Mock-IELTS · main.js (shared page layer)
+   Session guard, navigation chrome, per-user results vault,
+   honest export/import of results, small UI helpers.
+   Depends on: auth.js, data.js (loaded first).
+   ============================================================ */
+(() => {
+  "use strict";
+
+  const RESULTS_KEY = "mock_ielts_results_v1"; // { [userKey]: [attempt,...] }
+
+  /* ---------- navigation chrome ---------- */
+  const NAV_LINKS = [
+    ["index.html", "Home"],
+    ["reading.html", "Reading"],
+    ["listening.html", "Listening"],
+    ["writing.html", "Writing"],
+    ["speaking.html", "Speaking"],
+    ["dashboard.html", "My Progress"]
+  ];
+  const RESOURCES_PAGE = "resources.html";
+
+  function renderNav(active) {
+    const bar = document.getElementById("nav");
+    if (!bar) return;
+    const user = MockIELTS.Auth ? MockIELTS.Auth.current() : null;
+    let html = '<div class="nav-inner">'
+      + '<a class="brand" href="index.html">' + brand() + '</a>'
+      + '<button class="mobile-burger" aria-label="Menu" onclick="MockIELTS.toggleMenu()">'
+      + '<span></span><span></span><span></span></button>'
+      + '<nav class="nav-links">';
+    NAV_LINKS.forEach(([href, label]) => {
+      const cls = href === active ? ' class="active"' : "";
+      html += '<a' + cls + ' href="' + href + '">' + label + '</a>';
+    });
+    html += '<a href="' + RESOURCES_PAGE + '">Resources</a>';
+    html += '</nav>'
+      + '<div class="nav-user">';
+    if (user) {
+      html += '<span class="user-chip" title="Signed in as ' + esc(user.email) + '">' + esc(user.name.split(" ")[0]) + '</span>'
+        + '<button class="btn btn-ghost btn-sm" onclick="MockIELTS.logout()">Sign out</button>';
+    } else {
+      html += '<a class="btn btn-ghost btn-sm" href="login.html">Log in</a>'
+        + '<a class="btn btn-orange btn-sm" href="signup.html">Create free account</a>';
+    }
+    html += '</div></div>';
+    bar.innerHTML = html;
+  }
+
+  function brand() {
+    return '<span class="brandmark">M</span><span class="brandtext">ock-IELTS</span>';
+  }
+
+  function toggleMenu() {
+    const links = document.querySelector(".nav-links");
+    if (links) links.classList.toggle("open");
+  }
+
+  /* ---------- session guard for protected pages ---------- */
+  function requireAuth(fallback) {
+    if (!MockIELTS.Auth || !MockIELTS.Auth.isIn()) {
+      location.replace((fallback || "login.html") + "?next=" + encodeURIComponent(location.pathname.split("/").pop()));
+      return false;
+    }
+    return true;
+  }
+
+  /* ---------- per-user results vault ---------- */
+  function resultsAll() {
+    try { return JSON.parse(localStorage.getItem(RESULTS_KEY) || "{}"); }
+    catch (_) { return {}; }
+  }
+  function resultsWrite(map) { localStorage.setItem(RESULTS_KEY, JSON.stringify(map)); }
+
+  function currentUserKey() {
+    return MockIELTS.Auth && MockIELTS.Auth.current() ? MockIELTS.Auth.current().key : null;
+  }
+
+  function myResults() {
+    const k = currentUserKey();
+    const all = resultsAll();
+    return k ? (all[k] || []) : [];
+  }
+
+  function saveResult(attempt) {
+    const k = currentUserKey();
+    if (!k) return;
+    const all = resultsAll();
+    const list = all[k] || [];
+    list.push(Object.assign({ savedAt: Date.now() }, attempt));
+    all[k] = list.slice(-200);
+    resultsWrite(all);
+  }
+
+  function exportResults() {
+    const data = JSON.stringify({ app: "mock-ielts", kind: "results", exported: Date.now(), user: currentUserKey(), results: myResults() }, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "mock-ielts-results.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }
+
+  function importResults(file) {
+    return file.text().then((txt) => {
+      let data;
+      try { data = JSON.parse(txt); } catch (_) { throw new Error("That is not valid JSON."); }
+      if (!data || data.app !== "mock-ielts" || !Array.isArray(data.results)) {
+        throw new Error("That is not a Mock-IELTS results file.");
+      }
+      const k = currentUserKey();
+      if (!k) throw new Error("Sign in first to import results.");
+      const all = resultsAll();
+      const merged = (all[k] || []).concat(data.results);
+      all[k] = merged.slice(-500);
+      resultsWrite(all);
+      return merged.length;
+    });
+  }
+
+  /* ---------- tiny helpers ---------- */
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function el(id) { return document.getElementById(id); }
+
+  function bandBadge(band) {
+    return '<span class="band">' + band.toFixed(1) + "</span>";
+  }
+
+  /* ---------- simplistic (honest) speaking timer ---------- */
+  function startTimer(elId, seconds, onDone) {
+    const box = el(elId);
+    if (!box) return null;
+    let left = seconds;
+    const tick = () => {
+      if (left <= 0) { box.textContent = "0:00"; if (onDone) onDone(); return "stop"; }
+      const m = Math.floor(left / 60), s = left % 60;
+      box.textContent = m + ":" + String(s).padStart(2, "0");
+      left--;
+      return null;
+    };
+    tick();
+    const iv = setInterval(() => { if (tick() === "stop") clearInterval(iv); }, 1000);
+    return iv;
+  }
+
+  function fmtDate(ts) {
+    try { return new Date(ts).toLocaleDateString(); } catch (_) { return ""; }
+  }
+
+  window.MockIELTS = Object.assign(window.MockIELTS || {}, {
+    renderNav,
+    toggleMenu,
+    requireAuth,
+    saveResult,
+    myResults,
+    exportResults,
+    importResults,
+    startTimer,
+    esc,
+    bandBadge,
+    fmtDate,
+    logout() { if (MockIELTS.Auth) MockIELTS.Auth.logout(); location.href = "index.html"; }
+  });
+})();</script>
+<script>
+  MockIELTS.renderNav("home");
+  MockIELTS.toggleMenu = MockIELTS.toggleMenu || function(){ document.querySelector(".nav-links") && document.querySelector(".nav-links").classList.toggle("open"); };
+</script>
+</body>
+</html>
