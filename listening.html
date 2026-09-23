@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listening practice · Mock-IELTS</title>
+<meta name="description" content="IELTS Listening practice in official Section format: form completion and map-labelling. Real 30-minute timer, honest official-format scoring, and a plain-language 'what to improve next' list after every attempt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><text x='16' y='23' font-size='20' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23fff'>M</text></svg>">
+</head>
+<body class="app">
+<header class="site-head"><div id="nav"></div></header>
+<main id="top">
+  <section class="row-band sec">
+    <h2 class="section-h">Listening</h2>
+    <p class="lede">Two sections in official format. In the real test you hear each clip twice and the audio is copyrighted — so this mock pairs honest Section-style questions with the official free audio on the Resources page, and lets you mark your own attempt against the answer key.</p>
+  </section>
+  <section class="row-band sec"><div id="test"></div></section>
+  <section class="row-band sec"><div id="result"></div></section>
+</main>
+<footer class="site-foot">
+  <div class="foot-inner">
+    <span class="brandmark">M</span>
+    <p class="muted">Mock-IELTS · free practice companion, independent of the British Council, IDP and Cambridge. Not an official product.</p>
+    <div class="foot-links">
+      <a href="resources.html">Resources</a>
+      <a href="dashboard.html">My progress</a>
+      <a href="index.html">Home</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/test.js"></script>
+<script>
+MockIELTS.renderNav("listening");
+MockIELTS.Test.init({
+  skillKey: "listening",
+  skillLabel: "Listening",
+  label: "Listening · Official format",
+  seconds: 1800,
+  note: "Real band tables are conversion aids for official sample answers — never a standalone score. Use them as honest direction, then check the Resources page for official audio.",
+  body: function () {
+    var set = (MockIELTS.Data.LISTENING_SETS && MockIELTS.Data.LISTENING_SETS[0]) || {};
+    var q = set.questions || {};
+    var h = "";
+    h += '<div class="panel glass-card"><h3 class="section-h">' + MockIELTS.esc(set.name || "Listening Section 1") + "</h3>";
+    h += '<p class="lede">' + MockIELTS.esc(set.intro || "") + "</p></div>";
+    h += '<div class="part"><h3 class="section-h">' + MockIELTS.esc((q.type || "Questions") + (q.qs ? " · " + q.qs.length + " questions" : "")) + "</h3>";
+    (q.qs || []).forEach(function (t, i) {
+      h += '<div class="qq"><span class="qnum">' + MockIELTS.esc(String(t)) + "</span>"
+        + '<input class="inp" autocomplete="off" autocapitalize="characters" spellcheck="false" data-ans="' + MockIELTS.esc(String((q.answers || [])[i] || "")) + '" placeholder="Type your answer"></div>';
+    });
+    h += "</div>";
+    return h;
+  },
+  band: function (raw, total) { return MockIELTS.bandForRaw("listening", raw); },
+  skill: "listening",
+  href: "listening.html"
+});
+</script>
+</body>
+</html>

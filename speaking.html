@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speaking practice · Mock-IELTS</title>
+<meta name="description" content="IELTS Speaking practice in official Part 1 · Part 2 · Part 3 format: warm-up questions, a real 1-minute-prep / 2-minute-talk cue card timer, and honest Part-3 discussion prompts — because only a live examiner can give you a real Speaking band.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><text x='16' y='23' font-size='20' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23fff'>M</text></svg>">
+</head>
+<body class="app">
+<header class="site-head"><div id="nav"></div></header>
+<main id="top">
+  <section class="row-band sec">
+    <h2 class="section-h">Speaking · Part 1 · 2 · 3</h2>
+    <p class="lede">The three live-test parts with real cue-card prep and talk timers. A genuine IELTS Speaking band comes only from a certified examiner in an interview — so this page practises the timings and gives you an honest self-review checklist, never a fake number.</p>
+  </section>
+  <section class="row-band sec"><div id="sbox"></div><div id="sresult"></div></section>
+</main>
+<footer class="site-foot">
+  <div class="foot-inner"><span class="brandmark">M</span>
+    <p class="muted">Mock-IELTS · independent practice companion. Not affiliated with the British Council, IDP or Cambridge.</p>
+    <div class="foot-links"><a href="resources.html">Resources</a><a href="dashboard.html">My progress</a></div>
+  </div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/test.js"></script>
+<script>
+(function () {
+  MockIELTS.renderNav("speaking");
+  if (!MockIELTS.Auth.isIn()) { location.href = "login.html"; return; }
+  var bank = MockIELTS.Data.SPEAKING_BANK || {};
+  var root = document.getElementById("sbox");
+  var h = "";
+  h += '<div class="panel glass-card"><h3 class="section-h">Part 1 · warm-up</h3>';
+  (bank.part1 || []).slice(0, 3).forEach(function (p) {
+    h += '<div class="qq"><span class="tag">' + MockIELTS.esc(p.topic) + '</span><span class="qtext">' + MockIELTS.esc(p.q) + "</span></div>";
+  });
+  h += "</div>";
+  var p2 = (bank.part2 || [])[0] || {};
+  h += '<div class="panel glass-card"><h3 class="section-h">Part 2 · cue card <span class="muted">(1 min prep · 2 min talk)</span></h3>';
+  if (p2.card) {
+    h += '<div class="cue"><b>' + MockIELTS.esc(p2.card) + "</b><ul>";
+    (p2.bullets || []).forEach(function (b) { h += "<li>" + MockIELTS.esc(b) + "</li>"; });
+    h += "</ul>";
+    h += '<div class="row-band actions"><button type="button" class="btn btn-orange" id="prep">Start 1-min prep</button>'
+      + '<button type="button" class="btn btn-orange hide" id="talk">Start 2-min talk</button></div>';
+    h += '<div class="timer-band hide" id="tband"><span class="timer-label">Timer</span><strong class="timer" id="tclock">1:00</strong></div>';
+  }
+  h += "</div>";
+  h += '<div class="panel glass-card"><h3 class="section-h">Part 3 · discussion</h3>';
+  (bank.part3 || []).forEach(function (p) {
+    h += '<div class="qq"><span class="tag">' + MockIELTS.esc(p.topic) + '</span><span class="qtext">' + MockIELTS.esc(p.q) + "</span></div>";
+  });
+  h += "</div>";
+  h += '<div class="row-band actions"><button type="button" class="btn btn-orange" id="sgrade">I've finished — honest self-review</button></div>';
+  root.innerHTML = h;
+
+  var prep = document.getElementById("prep"), talk = document.getElementById("talk");
+  if (prep) prep.addEventListener("click", function () {
+    prep.classList.add("hide"); if (talk) talk.classList.remove("hide");
+    var tb = document.getElementById("tband"); if (tb) tb.classList.remove("hide");
+    MockIELTS.startTimer("tclock", 60, null);
+  });
+  if (talk) talk.addEventListener("click", function () {
+    talk.classList.add("hide");
+    MockIELTS.startTimer("tclock", 120, null);
+  });
+  document.getElementById("sgrade").addEventListener("click", function () {
+    var tips = ["Fluency & coherence — did you keep going without long pauses?",
+      "Lexical resource — did you use precise, topic-appropriate words?",
+      "Grammatical range & accuracy — any errors you noticed?",
+      "Pronunciation — was everything clear enough to be misheard?"];
+    var attempt = { skill: "speaking", skillLabel: "Speaking", band: null, raw: 0, correct: 0, total: 4, at: Date.now(), tips: tips, self: true };
+    MockIELTS.saveResult(attempt);
+    var r = document.getElementById("sresult");
+    r.innerHTML = '<div class="result-hero"><span class="kicker">Speaking · self-review saved</span>'
+      + '<span class="giant-band">—</span>'
+      + '<p class="lede">A real IELTS Speaking band needs a live examiner. Saved your honest self-review — practice the timings here, then do the real interview.</p></div>'
+      + '<div class="row-band actions"><a class="btn btn-orange" href="dashboard.html">My progress</a></div>';
+  });
+})();
+</script>
+</body>
+</html>

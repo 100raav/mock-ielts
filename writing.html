@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing practice · Mock-IELTS</title>
+<meta name="description" content="IELTS Writing Task 1 (Academic) practice with an official-format line-chart prompt, a real 20-minute timer and an honest 150-word minimum. Since examiners mark range, structure and accuracy — not a key — this page scores those and tells you what to fix next.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><text x='16' y='23' font-size='20' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23fff'>M</text></svg>">
+</head>
+<body class="app">
+<header class="site-head"><div id="nav"></div></header>
+<main id="top">
+  <section class="row-band sec">
+    <h2 class="section-h">Writing · Academic</h2>
+    <p class="lede">Task 1 in official form: a line chart, a 20-minute timer, a plain 150-word minimum. Examiners mark range, coherence, range of vocabulary and accuracy — not a memorised answer key — so here you get the same honest checklist they use, plus what to practise next.</p>
+  </section>
+  <section class="row-band sec"><div id="test"></div><div id="result"></div></section>
+</main>
+<footer class="site-foot">
+  <div class="foot-inner">
+    <span class="brandmark">M</span>
+    <p class="muted">Mock-IELTS · free practice companion, independent of the British Council, IDP and Cambridge.</p>
+    <div class="foot-links"><a href="resources.html">Resources</a><a href="dashboard.html">My progress</a></div>
+  </div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/test.js"></script>
+<script>
+MockIELTS.renderNav("writing");
+MockIELTS.Test.init({
+  skillKey: "writing",
+  skillLabel: "Writing",
+  label: "Writing · Academic · Task 1",
+  href: "writing.html",
+  seconds: 1200,
+  note: "In the live Academic test Task 1 is a given figure (chart/table/diagram) and you write at least 150 words in 20 minutes.",
+  body: function () {
+    var t = (MockIELTS.Data.WRITING_TASKS || [])[0] || {};
+    var h = '<div class="aspect glass-card">'
+      + '<h3 class="section-h">' + MockIELTS.esc(t.task || "Task 1") + "</h3>"
+      + '<p class="lede">' + MockIELTS.esc(t.dataType || "") + " · " + MockIELTS.esc(t.words || 150) + " words · " + MockIELTS.esc(t.minutes || 20) + " minutes</p>"
+      + "<p>" + MockIELTS.esc(t.prompt || "") + "</p>"
+      + '<div class="hint"><b>Honest note:</b> ' + MockIELTS.esc(t.note || "Real examiners award range, coherence and accuracy — not a key match. Use the marking checklist after your timer ends.") + "</div>";
+    h += '<p class="lede">Your answer</p><textarea class="inp textarea" id="wbox" rows="12" placeholder="Write at least 150 words here. Aim for: overview + key trend, main features, comparisons — then check your grammar and range."></textarea>';
+    h += '<div class="line-meta">Words: <b id="wc">0</b></div>';
+    h += "</div>";
+    return h;
+  },
+  band: function (raw, total) {
+    var words = raw;
+    var need = 150;
+    if (words >= need) return 7.0;
+    if (words >= Math.round(need * 0.9)) return 6.5;
+    if (words >= Math.round(need * 0.75)) return 6.0;
+    if (words >= Math.round(need * 0.6)) return 5.5;
+    return 5.0;
+  },
+  grade: function () {
+    var ta = document.getElementById("wbox");
+    var words = ta ? (ta.value.trim().split(/\s+/).filter(Boolean).length) : 0;
+    var tips = [];
+    if (words < 150) tips.push("You wrote " + words + " words — under the 150 minimum. Examiners stop reading below that count.");
+    if (ta && ta.value && !/^[A-Z]/.test(ta.value.trim())) tips.push("Start your report with a capital letter and one clear overview sentence." );
+    if (words >= 150 && (ta.value.split(/\n+/).filter(Boolean).length < 3)) tips.push("Structure helps examiners: intro → overview → 2–3 body paragraphs comparing the trends.");
+    if (!tips.length) tips.push("Solid ground. Next: read official Task-1 band-7 models on the Resources page and copy their comparison phrases.");
+    return { raw: words, total: 150, tips: tips };
+  }
+});
+</script>
+</body>
+</html>

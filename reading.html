@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading practice · Mock-IELTS</title>
+<meta name="description" content="Academic IELTS Reading practice: original passages, official question formats, real 20-minute timers and honest band conversion with what to improve next.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><text x='16' y='23' font-size='20' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23fff'>M</text></svg>">
+</head>
+<body class="app">
+<header class="site-head"><div id="nav"></div></header>
+<main id="top"><section class="row-band sec">
+<h2 class="section-h">Reading · Academic</h2>
+<p class="lede">Three original passages in official format. Each passage has its own 20-minute timer — start it, read honestly, and submit for a band conversion you can trust.</p>
+</section>
+<section class="row-band sec"><div id="test"></div><div id="result"></div></section>
+</main>
+<footer class="site-foot"><div class="foot-inner">
+<span class="brandmark">M</span>
+<p class="muted">Mock-IELTS · free practice companion, independent of the British Council, IDP and Cambridge.</p>
+<div class="foot-links"><a href="resources.html">Resources</a><a href="dashboard.html">My progress</a></div>
+</div></footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/test.js"></script>
+<script>
+MockIELTS.renderNav("reading");
+MockIELTS.Test.init({
+  skillKey: "reading_academic",
+  skillLabel: "Reading",
+  label: "Reading · Academic",
+  seconds: 1200,
+  skill: "reading",
+  href: "reading.html",
+  body: function () {
+    var h = "";
+    var set = (MockIELTS.Data.READING_SETS || [])[0] || {};
+    h += '<div class="panel glass-card"><div class="result-hero"><span class="kicker">Passage 1</span><h2 class="result-h">' + MockIELTS.esc(set.title || "Reading Passage 1") + '</h2>';
+    h += '<p class="lede">' + MockIELTS.esc(set.intro || "") + "</p></div>";
+    if (set.passage) { h += '<div class="passage">'; set.passage.forEach(function (p) { h += '<p class="para">' + MockIELTS.esc(p) + "</p>"; }); h += "</div>"; }
+    h += '<div class="questions" id="qs">';
+    var q1 = set.questions && set.questions.part1, q2 = set.questions && set.questions.part2, q3 = set.questions && set.questions.part3;
+    if (q1) { h += '<div class="part"><h3 class="section-h">' + MockIELTS.esc(q1.type || "Questions 1-5") + '</h3><p class="muted">' + MockIELTS.esc(q1.intro || "") + "</p>"; (q1.qs || []).forEach(function (q) { h += '<div class="qq"><span class="qnum">' + MockIELTS.esc(String(q[0])) + "</span><span class='qtext'>" + MockIELTS.esc(String(q[1])) + '</span><input class="inp" data-ans="' + MockIELTS.esc(String(q[2] || "")) + '" placeholder="Type your answer"></div>'; }); h += "</div>"; }
+    if (q2) { h += '<div class="part"><h3 class="section-h">' + MockIELTS.esc(q2.type || "Questions") + "</h3>"; (q2.qs || []).forEach(function (q) { h += '<div class="qq"><span class="qnum">' + MockIELTS.esc(String(q[0])) + "</span><span class='qtext'>" + MockIELTS.esc(String(q[1])) + "</span></div>"; }); h += "</div>"; }
+    if (q3) { h += '<div class="part"><h3 class="section-h">' + MockIELTS.esc(q3.type || "Questions") + "</h3>"; (q3.qs || []).forEach(function (q) { h += '<div class="qq"><span class="qnum">' + MockIELTS.esc(String(q[0])) + "</span><span class='qtext'>" + MockIELTS.esc(String(q[1])) + '</span><input class="inp" data-ans="' + MockIELTS.esc(String(q[2] || "")) + '" placeholder="Type your answer"></div>'; }); h += "</div>"; }
+    h += "</div></div>";
+    return h;
+  },
+  grade: function () {
+    var correct = 0, total = 0;
+    document.querySelectorAll("#qs .inp").forEach(function (inp) {
+      total++;
+      var got = String(inp.value || "").trim().toUpperCase().replace(/\s+/g, "");
+      var want = String(inp.getAttribute("data-ans") || "").trim().toUpperCase().replace(/\s+/g, "");
+      if (got === want) correct++; else inp.classList.add("bad");
+    });
+    return { raw: correct, total: total, tips: bandForReadingTips(correct, total) };
+  },
+  band: function (raw) { return MockIELTS.bandForRaw("reading_academic", raw); }
+});
+function bandForReadingTips(correct, total) {
+  var tips = [];
+  if (correct === total) tips.push("Perfect score this passage — try the next passage under a fresh 20-minute timer to test your pace.");
+  else {
+    tips.push("You scored " + correct + "/" + total + ". Reading bands come from total raw scores across 3 passages (40 questions), not one passage. Keep practising all three.");
+    tips.push("Missed answers usually hide in one paragraph. Go back, underline every matching word, and check the distractors before you re-answer.");
+  }
+  return tips;
+}
+</script>
+</body>
+</html>

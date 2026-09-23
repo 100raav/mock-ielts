@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create your account · Mock-IELTS</title>
+<meta name="description" content="Create your free Mock-IELTS account. Only your full name, Gmail and a password — no phone number, no card, no spam. Your practice stays on this device under your own account.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><text x='16' y='23' font-size='20' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23fff'>M</text></svg>">
+</head>
+<body>
+<header class="site-head"><div id="nav"></div></header>
+<main>
+  <section class="row-band sec">
+    <div class="panel">
+      <h2 class="section-h center">Create your free account</h2>
+      <p class="lede center">Your name, your Gmail, and a password you choose. That's it — no phone number, no card. Your attempts live on this device under your account, and only you can export them.</p>
+      <form id="signup-form" class="stack">
+        <label class="field"><span>Full name</span>
+          <input class="inp" id="fname" autocomplete="name" placeholder="e.g. Aarav Basnet" required></label>
+        <label class="field"><span>Gmail</span>
+          <input class="inp" id="gemail" type="email" inputmode="email" autocomplete="email" placeholder="you@gmail.com" required></label>
+        <label class="field"><span>Password</span>
+          <input class="inp" id="gpass" type="password" autocomplete="new-password" placeholder="At least 8 characters" required></label>
+        <label class="field"><span>Confirm password</span>
+          <input class="inp" id="gpass2" type="password" autocomplete="new-password" placeholder="Repeat your password" required></label>
+        <p class="err hide" id="serr"></p>
+        <button type="submit" class="btn btn-orange">Create account</button>
+        <p class="muted center">Already have an account? <a href="login.html">Log in</a></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="foot-inner">
+    <span class="brandmark">M</span>
+    <p class="muted">Mock-IELTS · free · independent of the British Council, IDP and Cambridge.</p>
+    <div class="foot-links"><a href="index.html">Home</a><a href="dashboard.html">My progress</a></div>
+  </div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/test.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script>
+  MockIELTS.renderNav("signup");
+  document.getElementById("signup-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var err = document.getElementById("serr");
+    err.classList.add("hide");
+    MockIELTS.Auth.signup(
+      document.getElementById("fname").value,
+      document.getElementById("gemail").value,
+      document.getElementById("gpass").value,
+      document.getElementById("gpass2").value
+    ).then(function (r) {
+      if (r && r.ok) { location.href = "dashboard.html"; return; }
+      err.textContent = (r && r.msg) || "Couldn't create your account — try again.";
+      err.classList.remove("hide");
+    });
+  });
+</script>
+</body>
+</html>

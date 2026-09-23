@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in · Mock-IELTS</title>
+<meta name="description" content="Log in to Mock-IELTS with your Gmail to see your practice history and bands. No tracking, no paywall — your attempts stay on your device.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><text x='16' y='23' font-size='20' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23fff'>M</text></svg>">
+</head>
+<body class="app">
+<header class="site-head"><div id="nav"></div></header>
+<main>
+  <section class="row-band sec">
+    <div class="auth-card glass-card">
+      <h2 class="section-h">Welcome back</h2>
+      <p class="muted">Sign in to keep your band history in one place. Everything stays on your device.</p>
+      <form id="form" class="stack">
+        <label class="field"><span>Gmail</span>
+          <input class="inp" type="text" id="em" inputmode="email" autocomplete="email" placeholder="you@gmail.com" required></label>
+        <label class="field"><span>Password</span>
+          <input class="inp" type="password" id="pw" autocomplete="current-password" placeholder="Your password" required></label>
+        <p class="row-band err hide" id="err"></p>
+        <button class="btn btn-orange" type="submit">Log in</button>
+        <p class="muted">New here? <a href="signup.html">Create a free account</a></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="site-foot"><div class="foot-inner"><span class="brandmark">M</span><p class="muted">Mock-IELTS · free practice companion, independent of the British Council, IDP and Cambridge.</p></div></footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+MockIELTS.renderNav("login");
+(function () {
+  var form = document.getElementById("form"), ferr = document.getElementById("err");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = document.getElementById("em").value.trim();
+    var pass = document.getElementById("pw").value;
+    MockIELTS.Auth.login(email, pass).then(function (r) {
+      if (r && r.ok) { location.href = "dashboard.html"; return; }
+      ferr.classList.remove("hide"); ferr.textContent = (r && r.msg) || "Couldn't log in — try again.";
+    });
+  });
+})();
+</script>
+</body>
+</html>
